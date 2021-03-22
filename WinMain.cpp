@@ -1,5 +1,6 @@
 #include "Window.h"
 #include "MeigaException.h"
+#include "App.h"
 
 int CALLBACK WinMain(
 	HINSTANCE hInstance,
@@ -10,22 +11,12 @@ int CALLBACK WinMain(
 {
 	try
 	{
-		Window wnd(800, 300, "Meiga");
-
-		MSG msg;
-		BOOL gResult;
-		while ((gResult = GetMessage(&msg, nullptr, 0, 0)) > 0)
-		{
-			TranslateMessage(&msg);
-			DispatchMessage(&msg);
-		}
-
-		if (gResult == -1)
-			return -1;
-
-		return msg.wParam;
+		return App{}.Start();
 	}
-
+	catch (const MeigaException& e)
+	{
+		MessageBox(nullptr, e.what(), "Meiga Exception", MB_OK | MB_ICONEXCLAMATION);
+	}
 	catch (const std::exception& e)
 	{
 		MessageBox(nullptr, e.what(), "Standard Exception", MB_OK | MB_ICONEXCLAMATION);

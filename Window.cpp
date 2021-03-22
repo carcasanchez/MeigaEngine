@@ -49,7 +49,7 @@ Window::Window(int width, int height, const char* name) : width(width), height(h
 	wr.top = 100;
 	wr.bottom = height + wr.top;
 
-	if(AdjustWindowRect(&wr, WS_CAPTION|WS_MINIMIZEBOX| WS_SYSMENU, FALSE) == 0)
+	if (AdjustWindowRect(&wr, WS_CAPTION | WS_MINIMIZEBOX | WS_SYSMENU, FALSE) == 0)
 		throw MEIGA_LAST_EXCEPT();
 
 	AdjustWindowRect(&wr, WS_CAPTION | WS_MINIMIZEBOX | WS_SYSMENU, FALSE);
@@ -62,15 +62,42 @@ Window::Window(int width, int height, const char* name) : width(width), height(h
 		nullptr, nullptr, WindowClass::GetInstance(), this
 		);
 
-
 	if (hWnd == nullptr)
 		throw MEIGA_LAST_EXCEPT();
+
 	ShowWindow(hWnd, SW_SHOWDEFAULT);
+	pGfx = std::make_unique<Graphics>(hWnd);
 }
 
 Window::~Window()
 {
 	DestroyWindow(hWnd);
+}
+
+void Window::SetTitle(const std::string title)
+{
+	if (SetWindowText(hWnd, title.c_str()) == 0)
+		throw MEIGA_LAST_EXCEPT();
+}
+
+std::optional<int> Window::ProcessMessages()
+{
+	MSG msg;
+	while (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
+	{
+		if (msg.message == WM_QUIT)
+			return msg.wParam;
+
+		TranslateMessage(&msg);
+		DispatchMessage(&msg);
+	}
+
+	return {};
+}
+
+Graphics& Window::GetGfx()
+{
+	return *pGfx;
 }
 
 LRESULT CALLBACK Window::HandleMsgSetup(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noexcept
@@ -102,11 +129,103 @@ LRESULT CALLBACK Window::HandleMsgThunk(HWND hWnd, UINT msg, WPARAM wParam, LPAR
 
 LRESULT Window::HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noexcept
 {
+
 	switch (msg)
 	{
 	case WM_CLOSE:
 		PostQuitMessage(0);
 		return 0;
+	case WM_KILLFOCUS:
+		kboard.ClearState();
+		break;
+#pragma region Keyboard
+	case WM_KEYDOWN:
+	case WM_SYSKEYDOWN:
+		if (!(lParam & 0x40000000) || kboard.AutorepeatIsEnabled())
+			kboard.OnKeyPressed(static_cast<unsigned char>(wParam));
+		break;
+	case WM_KEYUP:
+	case WM_SYSKEYUP:
+		kboard.OnKeyReleased(static_cast<unsigned char>(wParam));
+		break;
+	case WM_CHAR:
+		kboard.OnChar(static_cast<unsigned char>(wParam));
+		break;
+#pragma endregion
+#pragma region Mouse
+	case WM_MOUSEMOVE:
+	{
+		const POINTS pt = MAKEPOINTS(lParam);
+		// in client region -> log move, and log enter + capture mouse (if not previously in window)
+		if (pt.x >= 0 && pt.x < width && pt.y >= 0 && pt.y < height)
+		{
+			mouse.OnMouseMove(pt.x, pt.y);
+			if (!mouse.IsInWindow())
+			{
+				SetCapture(hWnd);
+				mouse.OnMouseEnter();
+			}
+		}
+		// not in client -> log move / maintain capture if button down
+		else
+		{
+			if (wParam & (MK_LBUTTON | MK_RBUTTON))
+			{
+				mouse.OnMouseMove(pt.x, pt.y);
+			}
+			// button up -> release capture / log event for leaving
+			else
+			{
+				ReleaseCapture();
+				mouse.OnMouseLeave();
+			}
+		}
+		break;
+	}
+	case WM_LBUTTONDOWN:
+	{
+		const POINTS pt = MAKEPOINTS(lParam);
+		mouse.OnLeftPressed(pt.x, pt.y);
+		break;
+	}
+	case WM_RBUTTONDOWN:
+	{
+		const POINTS pt = MAKEPOINTS(lParam);
+		mouse.OnRightPressed(pt.x, pt.y);
+		break;
+	}
+	case WM_LBUTTONUP:
+	{
+		const POINTS pt = MAKEPOINTS(lParam);
+		mouse.OnLeftReleased(pt.x, pt.y);
+		// release mouse if outside of window
+		if (pt.x < 0 || pt.x >= width || pt.y < 0 || pt.y >= height)
+		{
+			ReleaseCapture();
+			mouse.OnMouseLeave();
+		}
+		break;
+	}
+	case WM_RBUTTONUP:
+	{
+		const POINTS pt = MAKEPOINTS(lParam);
+		mouse.OnRightReleased(pt.x, pt.y);
+		// release mouse if outside of window
+		if (pt.x < 0 || pt.x >= width || pt.y < 0 || pt.y >= height)
+		{
+			ReleaseCapture();
+			mouse.OnMouseLeave();
+		}
+		break;
+	}
+	case WM_MOUSEWHEEL:
+	{
+		const POINTS pt = MAKEPOINTS(lParam);
+		const int delta = GET_WHEEL_DELTA_WPARAM(wParam);
+		mouse.OnWheelDelta(pt.x, pt.y, delta);
+		break;
+	}
+#pragma endregion
 	}
 
 	return DefWindowProc(hWnd, msg, wParam, lParam);

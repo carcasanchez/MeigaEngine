@@ -1,6 +1,11 @@
 #pragma once
 #include "WinInclude.h"
 #include "MeigaException.h"
+#include "Keyboard.h"
+#include "Mouse.h"
+#include "Graphics.h"
+#include <optional>
+#include <memory>
 
 #define MEIGA_EXCEPT(hr) Window::Exception(__LINE__,__FILE__, hr)
 #define MEIGA_LAST_EXCEPT() Window::Exception(__LINE__,__FILE__, GetLastError())
@@ -44,6 +49,13 @@ public:
 	~Window();
 	Window(const Window&) = delete;
 	Window& operator=(const Window&) = delete;
+	void SetTitle(const std::string title);
+	static std::optional<int> ProcessMessages();
+	Graphics& GetGfx();
+
+	Keyboard kboard;
+	Mouse mouse;
+
 
 private:
 	static LRESULT CALLBACK HandleMsgSetup(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noexcept;
@@ -53,5 +65,6 @@ private:
 	int width;
 	int height;
 	HWND hWnd;
+	std::unique_ptr<Graphics> pGfx;
 };
 
