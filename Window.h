@@ -74,6 +74,8 @@ private:
 	static LRESULT CALLBACK HandleMsgThunk(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noexcept;
 	LRESULT HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noexcept;
 
+	BOOL ResizeWindow(WPARAM wparam, LPARAM lparam);
+
 	int width;
 	int height;
 	HWND hWnd;

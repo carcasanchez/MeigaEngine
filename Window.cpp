@@ -49,15 +49,13 @@ Window::Window(int width, int height, const char* name) : width(width), height(h
 	wr.top = 100;
 	wr.bottom = height + wr.top;
 
-	if (AdjustWindowRect(&wr, WS_CAPTION | WS_MINIMIZEBOX | WS_SYSMENU, FALSE) == 0)
+	if (AdjustWindowRect(&wr, WS_CAPTION | WS_MINIMIZEBOX | WS_MAXIMIZEBOX | WS_SYSMENU | WS_THICKFRAME, FALSE) == 0)
 		throw MEIGA_LAST_EXCEPT();
-
-	AdjustWindowRect(&wr, WS_CAPTION | WS_MINIMIZEBOX | WS_SYSMENU, FALSE);
 
 	// create window & get hWnd
 	hWnd = CreateWindowEx(0,
 		WindowClass::GetName(), name,
-		WS_CAPTION | WS_MINIMIZEBOX | WS_SYSMENU,
+		WS_CAPTION |WS_MAXIMIZEBOX| WS_MINIMIZEBOX | WS_SYSMENU | WS_THICKFRAME,
 		CW_USEDEFAULT, CW_USEDEFAULT, wr.right - wr.left, wr.bottom - wr.top,
 		nullptr, nullptr, WindowClass::GetInstance(), this
 		);
@@ -141,6 +139,10 @@ LRESULT Window::HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noe
 		return 0;
 	case WM_KILLFOCUS:
 		kboard.ClearState();
+		break;
+		// Size
+	case WM_SIZE:
+		//ResizeWindow(wParam, lParam);
 		break;
 #pragma region Keyboard
 	case WM_KEYDOWN:
@@ -235,6 +237,32 @@ LRESULT Window::HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noe
 	return DefWindowProc(hWnd, msg, wParam, lParam);
 }
 
+BOOL Window::ResizeWindow(WPARAM wParam, LPARAM lParam)
+{
+	int width = LOWORD(lParam);
+	int height = HIWORD(lParam);
+
+	// Get the window and client dimensions
+	//GetWindowRect(hWnd, &window.wind);
+	//GetClientRect(hWnd, &window.rect);
+
+	//if (width < (height * WIDTH) / HEIGHT)
+	//{
+		// Calculate desired window width and height
+	/*int border = (window.wind.right - window.wind.left) -
+		window.rect.right;
+	int header = (window.wind.bottom - window.wind.top) -
+		window.rect.bottom;
+	width = height + border;
+	height = height  + header;*/
+
+	// Set new dimensions
+	SetWindowPos(hWnd, NULL, 0, 0,
+		width, height,
+		SWP_NOMOVE | SWP_NOOWNERZORDER | SWP_NOZORDER);
+	return true;
+	//}
+}
 //Window exception
 std::string Window::Exception::TranslateErrorCode(HRESULT hr) noexcept
 {
