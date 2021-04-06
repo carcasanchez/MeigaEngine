@@ -1,13 +1,9 @@
-struct VSout
+cbuffer CBuf
 {
-	float3 color : Color; 
-	float4 pos : SV_Position;
+	matrix transform;
 };
 
-VSout main(float2 pos : Position, float3 color : Color)
+float4 main(float3 pos : Position) : SV_Position
 {
-	VSout outStructure;
-	outStructure.pos = float4(pos.x, pos.y, 0.0f, 1.0f);
-	outStructure.color = color;
-	return outStructure;
+	return mul(float4(pos, 1.0f), transform);
 }
