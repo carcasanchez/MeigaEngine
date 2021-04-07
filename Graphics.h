@@ -8,6 +8,7 @@
 
 class Graphics
 {
+	friend class Bindable;
 public:
 
 #pragma region Exceptions
