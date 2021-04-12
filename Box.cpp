@@ -20,6 +20,14 @@ Box::Box(Graphics& gfx,
 	theta(adist(rng)),
 	phi(adist(rng))
 {
+
+	if (IsStaticInitialized())
+	{
+		SetIndexFromStatic();
+		AddBind(std::make_unique<TransformCbuf>(gfx, *this));
+		return;
+	}
+
 	struct Vertex
 	{
 		struct
@@ -40,13 +48,13 @@ Box::Box(Graphics& gfx,
 		{ -1.0f,1.0f,1.0f },
 		{ 1.0f,1.0f,1.0f },
 	};
-	AddBind(std::make_unique<VertexBuffer>(gfx, vertices));
+	AddStaticBind(std::make_unique<VertexBuffer>(gfx, vertices));
 
 	auto pvs = std::make_unique<VertexShader>(gfx, L"VertexShader.cso");
 	auto pvsbc = pvs->GetBytecode();
-	AddBind(std::move(pvs));
+	AddStaticBind(std::move(pvs));
 
-	AddBind(std::make_unique<PixelShader>(gfx, L"PixelShader.cso"));
+	AddStaticBind(std::make_unique<PixelShader>(gfx, L"PixelShader.cso"));
 
 	const std::vector<unsigned short> indices =
 	{
@@ -57,7 +65,7 @@ Box::Box(Graphics& gfx,
 		0,4,2, 2,4,6,
 		0,1,4, 1,5,4
 	};
-	AddIndexBuffer(std::make_unique<IndexBuffer>(gfx, indices));
+	AddStaticIndexBuffer(std::make_unique<IndexBuffer>(gfx, indices));
 
 	struct ConstantBuffer2
 	{
@@ -80,16 +88,18 @@ Box::Box(Graphics& gfx,
 			{ 0.0f,1.0f,1.0f },
 		}
 	};
-	AddBind(std::make_unique<PixelConstantBuffer<ConstantBuffer2>>(gfx, cb2));
+	AddStaticBind(std::make_unique<PixelConstantBuffer<ConstantBuffer2>>(gfx, cb2));
 
 	const std::vector<D3D11_INPUT_ELEMENT_DESC> ied =
 	{
 		{ "Position",0,DXGI_FORMAT_R32G32B32_FLOAT,0,0,D3D11_INPUT_PER_VERTEX_DATA,0 },
 	};
-	AddBind(std::make_unique<InputLayout>(gfx, ied, pvsbc));
+	AddStaticBind(std::make_unique<InputLayout>(gfx, ied, pvsbc));
 
-	AddBind(std::make_unique<Topology>(gfx, D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST));
+	AddStaticBind(std::make_unique<Topology>(gfx, D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST));
 
+
+	//Transform is not a static bind
 	AddBind(std::make_unique<TransformCbuf>(gfx, *this));
 }
 

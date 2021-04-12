@@ -10,6 +10,10 @@ void Drawable::Draw(Graphics& gfx) const noexcept
 	{
 		b->Bind(gfx);
 	}
+	for (auto& b : GetStaticBinds())
+	{
+		b->Bind(gfx);
+	}
 	gfx.DrawIndexed(pIndexBuffer->GetCount());
 }
 
@@ -25,3 +29,5 @@ void Drawable::AddIndexBuffer(std::unique_ptr<IndexBuffer> ibuf) noexcept
 	pIndexBuffer = ibuf.get();
 	binds.push_back(std::move(ibuf));
 }
+
+

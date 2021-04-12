@@ -163,6 +163,9 @@
     <ClInclude Include="Box.h">
       <Filter>MeigaBaseEngine\Drawable</Filter>
     </ClInclude>
+    <ClInclude Include="DrawableBase.h">
+      <Filter>MeigaBaseEngine\Drawable</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="MeigaEngine.rc">
