@@ -21,6 +21,9 @@
     <Filter Include="MeigaBaseEngine\Bindable">
       <UniqueIdentifier>{cb182984-2fd2-44c5-832a-ed733c795f9e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="MeigaBaseEngine\Drawable">
+      <UniqueIdentifier>{b2051f2e-eb0c-414e-af31-c727cdb7410a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="App.cpp">
@@ -52,6 +55,36 @@
     </ClCompile>
     <ClCompile Include="MeigaException.cpp">
       <Filter>MeigaBaseEngine\ErrorHandling</Filter>
+    </ClCompile>
+    <ClCompile Include="Bindable.cpp">
+      <Filter>MeigaBaseEngine\Bindable</Filter>
+    </ClCompile>
+    <ClCompile Include="VertexBuffer.cpp">
+      <Filter>MeigaBaseEngine\Bindable</Filter>
+    </ClCompile>
+    <ClCompile Include="VertexShader.cpp">
+      <Filter>MeigaBaseEngine\Bindable</Filter>
+    </ClCompile>
+    <ClCompile Include="TransformCbuf.cpp">
+      <Filter>MeigaBaseEngine\Bindable</Filter>
+    </ClCompile>
+    <ClCompile Include="IndexBuffer.cpp">
+      <Filter>MeigaBaseEngine\Bindable</Filter>
+    </ClCompile>
+    <ClCompile Include="InputLayout.cpp">
+      <Filter>MeigaBaseEngine\Bindable</Filter>
+    </ClCompile>
+    <ClCompile Include="PixelShader.cpp">
+      <Filter>MeigaBaseEngine\Bindable</Filter>
+    </ClCompile>
+    <ClCompile Include="Topology.cpp">
+      <Filter>MeigaBaseEngine\Bindable</Filter>
+    </ClCompile>
+    <ClCompile Include="Drawable.cpp">
+      <Filter>MeigaBaseEngine\Drawable</Filter>
+    </ClCompile>
+    <ClCompile Include="Box.cpp">
+      <Filter>MeigaBaseEngine\Drawable</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -96,6 +129,39 @@
     </ClInclude>
     <ClInclude Include="Bindable.h">
       <Filter>MeigaBaseEngine\Bindable</Filter>
+    </ClInclude>
+    <ClInclude Include="BindableBase.h">
+      <Filter>MeigaBaseEngine\Bindable</Filter>
+    </ClInclude>
+    <ClInclude Include="VertexBuffer.h">
+      <Filter>MeigaBaseEngine\Bindable</Filter>
+    </ClInclude>
+    <ClInclude Include="ConstantBuffers.h">
+      <Filter>MeigaBaseEngine\Bindable</Filter>
+    </ClInclude>
+    <ClInclude Include="VertexShader.h">
+      <Filter>MeigaBaseEngine\Bindable</Filter>
+    </ClInclude>
+    <ClInclude Include="TransformCbuf.h">
+      <Filter>MeigaBaseEngine\Bindable</Filter>
+    </ClInclude>
+    <ClInclude Include="Topology.h">
+      <Filter>MeigaBaseEngine\Bindable</Filter>
+    </ClInclude>
+    <ClInclude Include="PixelShader.h">
+      <Filter>MeigaBaseEngine\Bindable</Filter>
+    </ClInclude>
+    <ClInclude Include="IndexBuffer.h">
+      <Filter>MeigaBaseEngine\Bindable</Filter>
+    </ClInclude>
+    <ClInclude Include="InputLayout.h">
+      <Filter>MeigaBaseEngine\Bindable</Filter>
+    </ClInclude>
+    <ClInclude Include="Drawable.h">
+      <Filter>MeigaBaseEngine\Drawable</Filter>
+    </ClInclude>
+    <ClInclude Include="Box.h">
+      <Filter>MeigaBaseEngine\Drawable</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
