@@ -166,6 +166,24 @@
     <ClInclude Include="DrawableBase.h">
       <Filter>MeigaBaseEngine\Drawable</Filter>
     </ClInclude>
+    <ClInclude Include="IndexedTriangleList.h">
+      <Filter>MeigaBaseEngine\Drawable</Filter>
+    </ClInclude>
+    <ClInclude Include="Cube.h">
+      <Filter>MeigaBaseEngine\Drawable</Filter>
+    </ClInclude>
+    <ClInclude Include="Plane.h">
+      <Filter>MeigaBaseEngine\Drawable</Filter>
+    </ClInclude>
+    <ClInclude Include="MeigaMath.h">
+      <Filter>MeigaBaseEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="Prism.h">
+      <Filter>MeigaBaseEngine\Drawable</Filter>
+    </ClInclude>
+    <ClInclude Include="Sphere.h">
+      <Filter>MeigaBaseEngine\Drawable</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="MeigaEngine.rc">
