@@ -24,6 +24,9 @@
     <Filter Include="MeigaBaseEngine\Drawable">
       <UniqueIdentifier>{b2051f2e-eb0c-414e-af31-c727cdb7410a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="MeigaBaseEngine\Drawable\Primitives">
+      <UniqueIdentifier>{b5c8ee78-ce7c-461d-aff3-3eda1eaa30c5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="App.cpp">
@@ -166,23 +169,23 @@
     <ClInclude Include="DrawableBase.h">
       <Filter>MeigaBaseEngine\Drawable</Filter>
     </ClInclude>
-    <ClInclude Include="IndexedTriangleList.h">
-      <Filter>MeigaBaseEngine\Drawable</Filter>
-    </ClInclude>
-    <ClInclude Include="Cube.h">
-      <Filter>MeigaBaseEngine\Drawable</Filter>
-    </ClInclude>
-    <ClInclude Include="Plane.h">
-      <Filter>MeigaBaseEngine\Drawable</Filter>
-    </ClInclude>
     <ClInclude Include="MeigaMath.h">
       <Filter>MeigaBaseEngine</Filter>
     </ClInclude>
-    <ClInclude Include="Prism.h">
-      <Filter>MeigaBaseEngine\Drawable</Filter>
-    </ClInclude>
     <ClInclude Include="Sphere.h">
-      <Filter>MeigaBaseEngine\Drawable</Filter>
+      <Filter>MeigaBaseEngine\Drawable\Primitives</Filter>
+    </ClInclude>
+    <ClInclude Include="Prism.h">
+      <Filter>MeigaBaseEngine\Drawable\Primitives</Filter>
+    </ClInclude>
+    <ClInclude Include="Plane.h">
+      <Filter>MeigaBaseEngine\Drawable\Primitives</Filter>
+    </ClInclude>
+    <ClInclude Include="IndexedTriangleList.h">
+      <Filter>MeigaBaseEngine\Drawable\Primitives</Filter>
+    </ClInclude>
+    <ClInclude Include="Cube.h">
+      <Filter>MeigaBaseEngine\Drawable\Primitives</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
