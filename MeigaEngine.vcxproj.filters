@@ -89,6 +89,21 @@
     <ClCompile Include="Box.cpp">
       <Filter>MeigaBaseEngine\Drawable</Filter>
     </ClCompile>
+    <ClCompile Include="GDIPlusManager.cpp">
+      <Filter>MeigaBaseEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="Surface.cpp">
+      <Filter>MeigaBaseEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>MeigaBaseEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="Sampler.cpp">
+      <Filter>MeigaBaseEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="Sheet.cpp">
+      <Filter>MeigaBaseEngine\Drawable</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Window.h">
@@ -187,6 +202,21 @@
     <ClInclude Include="Cube.h">
       <Filter>MeigaBaseEngine\Drawable\Primitives</Filter>
     </ClInclude>
+    <ClInclude Include="GDIPlusManager.h">
+      <Filter>MeigaBaseEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="Surface.h">
+      <Filter>MeigaBaseEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>MeigaBaseEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="Sampler.h">
+      <Filter>MeigaBaseEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="Sheet.h">
+      <Filter>MeigaBaseEngine\Drawable</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="MeigaEngine.rc">
@@ -195,6 +225,12 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="Meiga.ico">
+      <Filter>Archivos de recursos</Filter>
+    </Image>
+    <Image Include="Images\Fobian.png">
+      <Filter>Archivos de recursos</Filter>
+    </Image>
+    <Image Include="Images\smug.png">
       <Filter>Archivos de recursos</Filter>
     </Image>
   </ItemGroup>
@@ -214,6 +250,12 @@
       <Filter>Shaders</Filter>
     </FxCompile>
     <FxCompile Include="PixelShader.hlsl">
+      <Filter>Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="DiffuseVertexShader.hlsl">
+      <Filter>Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="DiffusePixelShader.hlsl">
       <Filter>Shaders</Filter>
     </FxCompile>
   </ItemGroup>
