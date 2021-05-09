@@ -5,6 +5,8 @@
 #include <random>
 #include "Surface.h"
 #include"GDIPlusManager.h"
+#include "imgui_impl_dx11.h"
+#include "imgui_impl_win32.h"
 
 GDIPlusManager gdiManager;
 
@@ -55,6 +57,18 @@ void App::Update()
 		b->Update(dt);
 		b->Draw(window.GetGfx());
 	}
+
+	ImGui_ImplDX11_NewFrame();
+	ImGui_ImplWin32_NewFrame();
+	ImGui::NewFrame();
+
+	static bool showDemoWindow = true;
+	if (showDemoWindow)
+	{
+		ImGui::ShowDemoWindow(&showDemoWindow);
+	}
+	ImGui::Render();
+	ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
 
 	window.GetGfx().EndFrame();
 }

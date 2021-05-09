@@ -18,7 +18,7 @@
 #define NOATOM
 #define NOCLIPBOARD
 #define NOCOLOR
-#define NOCTLMGR
+/*#define NOCTLMGR*/ //This prevents ImGui from compiling?
 #define NODRAWTEXT
 #define NOKERNEL
 #define NONLS
