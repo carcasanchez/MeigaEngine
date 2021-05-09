@@ -39,11 +39,11 @@ Sheet::Sheet(Graphics& gfx,
 		};
 		auto model = Plane::Make<Vertex>();
 		model.vertices[0].tex = { 0.0f,0.0f };
-		model.vertices[1].tex = { 2.0f,0.0f };
-		model.vertices[2].tex = { 0.0f,2.0f };
-		model.vertices[3].tex = { 2.0f,2.0f };
+		model.vertices[1].tex = { 1.0f,0.0f };
+		model.vertices[2].tex = { 0.0f,1.0f };
+		model.vertices[3].tex = { 1.0f,1.0f };
 
-		AddStaticBind(std::make_unique<Texture>(gfx, Surface::FromFile("Images\\kappa50.png")));
+		AddStaticBind(std::make_unique<Texture>(gfx, Surface::FromFile("Images\\Fobian.png")));
 
 		AddStaticBind(std::make_unique<VertexBuffer>(gfx, model.vertices));
 
