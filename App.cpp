@@ -1,6 +1,7 @@
 #include "App.h"
 #include "Sheet.h"
 #include "Box.h"
+#include "SkinnedBox.h"
 #include <random>
 #include "Surface.h"
 #include"GDIPlusManager.h"
@@ -18,7 +19,7 @@ App::App() : window(800, 600, "Meiga")
 
 	for (auto i = 0; i < 80; i++)
 	{
-		drawables.push_back(std::make_unique<Sheet>(
+		drawables.push_back(std::make_unique<SkinnedBox>(
 			window.GetGfx(), rng, adist,
 			ddist, odist, rdist));
 	}

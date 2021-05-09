@@ -104,6 +104,9 @@
     <ClCompile Include="Sheet.cpp">
       <Filter>MeigaBaseEngine\Drawable</Filter>
     </ClCompile>
+    <ClCompile Include="SkinnedBox.cpp">
+      <Filter>MeigaBaseEngine\Drawable</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Window.h">
@@ -215,6 +218,9 @@
       <Filter>MeigaBaseEngine</Filter>
     </ClInclude>
     <ClInclude Include="Sheet.h">
+      <Filter>MeigaBaseEngine\Drawable</Filter>
+    </ClInclude>
+    <ClInclude Include="SkinnedBox.h">
       <Filter>MeigaBaseEngine\Drawable</Filter>
     </ClInclude>
   </ItemGroup>
